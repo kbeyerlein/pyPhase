@@ -5,6 +5,10 @@ Python Module which contains algorithms for iterative phase retrieval
 
 @author: kbeyerle
 '''
+import sys
+
+sys.path.append('../../../myPyFun/MyFuncts/src/')
+import myMath
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -29,8 +33,11 @@ def supportProjection(rho, support):
 def makeReal(arr):
     return np.array([[np.absolute(i) if i.real >=-0.000001 else -np.absolute(i) for i in row] for row in arr])
 
+def makeThresholdMask(arr, val):
+    return np.array([[1 if i.real > val else 0 for i in row] for row in arr])
+
 def makePositiveMask(arr):
-    return np.array([[1 if i.real > 0.0000000001 else 0 for i in row] for row in arr])
+    return makeThresholdMask(arr, 0.0000001)
 
 def invertMask(mask):
     return np.ones(np.shape(mask))-np.array(mask)
@@ -78,3 +85,12 @@ def ErrReduct(rho, modulus, support, positive=False):
     if (positive):
         support=makePositiveMask(myRho*np.array(support))
     return supportProjection(myRho, support)
+
+def ShrinkWrap(rho, support, sigma, threshold=0.2, sigmaMin=0):
+    gaussian=myMath.TwoDNormalArray(rho.shape, [int(rho.shape[0]/2),int(rho.shape[1]/2)], [sigma,sigma])
+    blurred=np.fft.ifft2(np.fft.fft2(rho)*np.absolute(np.fft.fft2(gaussian)))
+    blurred=np.absolute(blurred)
+    newSupport=makeThresholdMask(blurred, threshold*np.amax(blurred))
+    sigma*=0.99
+    if (sigma< sigmaMin): sigma=sigmaMin
+    return newSupport, sigma
