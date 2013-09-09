@@ -7,7 +7,7 @@ Python Module which contains algorithms for iterative phase retrieval
 '''
 import sys
 
-sys.path.append('../../../myPyFun/MyFuncts/src/')
+sys.path.append('/home/kbeyerle/git/myPyFun/MyFuncts/src/')
 import myMath
 
 import numpy as np
