@@ -174,10 +174,11 @@ real = False
 positive= False
 debug = True
 shrinkWrap = True
+mask = np.ones(support.shape)
 sig=np.sqrt(np.sum(support))/4.0
 sigMin=sig/2.0
 for i in range(100):
-    myRho=ip.HIO(rho=myRho, mod=mod, support=support, positive=positive)
+    myRho=ip.HIO(rho=myRho, mod=mod, support=support, mask=mask, positive=positive)
     if (real): myRho=ip.makeReal(myRho)
     if (i%20==0):
         if(shrinkWrap):
