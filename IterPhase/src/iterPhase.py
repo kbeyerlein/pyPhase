@@ -13,6 +13,7 @@ sys.path.append('/home/ken/git/myPyFun/MyFuncts/src/')
 import myMath
 
 import numpy as np
+from scipy import ndimage
 import matplotlib.pyplot as plt
 import detector as det
 
@@ -95,9 +96,10 @@ def ErrReduct(rho, modulus, support, mask, positive=False):
     return supportProjection(myRho, support)
 
 def ShrinkWrap(rho, support, sigma, threshold=0.2, sigmaMin=0):
-    gaussian=myMath.TwoDNormalArray(rho.shape, [int(rho.shape[0]/2),int(rho.shape[1]/2)], [sigma,sigma])
-    blurred=np.fft.ifft2(np.fft.fft2(rho)*np.absolute(np.fft.fft2(gaussian)))
-    blurred=np.absolute(blurred)
+    # gaussian=myMath.TwoDNormalArray(rho.shape, [int(rho.shape[0]/2),int(rho.shape[1]/2)], [sigma,sigma])
+  #   blurred=np.fft.ifft2(np.fft.fft2(rho)*np.absolute(np.fft.fft2(det.centerFFTImage(gaussian))))
+    # blurred=np.absolute(blurred)
+    blurred=ndimage.gaussian_filter(np.absolute(rho), sigma=sigma, mode='wrap')
     newSupport=makeThresholdMask(blurred, threshold*np.amax(blurred))
     sigma*=0.99
     if (sigma< sigmaMin): sigma=sigmaMin
