@@ -7,7 +7,7 @@ import sys
 
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
-import Image
+from PIL import Image
 import cmath
 
 sys.path.append('../src/')
@@ -167,8 +167,9 @@ plt.imshow(det.centerFFTImage(support), interpolation = "nearest")
 plt.show()
 real = False
 positive= True
+mask = np.ones_like(myRho)
 for i in range(10000):
-    myRho=ip.HIO(rho=myRho, mod=mod, support=support, positive=positive)
+    myRho=ip.HIO(rho=myRho, mod=mod, support=support, mask=mask, positive=positive)
     if (real): myRho=ip.makeReal(myRho)
     if (i%500 == 0 and i>0): myRho=ip.ErrReduct(myRho,mod,support, positive)
     if (i%1000 == 0):

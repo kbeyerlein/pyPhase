@@ -6,7 +6,7 @@ import numpy as np
 import sys
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
-import Image
+from PIL import Image
 
 sys.path.append('../src/')
 import iterPhase as ip
@@ -66,9 +66,9 @@ myRho = np.fft.ifft2(f0)
 print "Initial Rho"
 plt.imshow(det.centerFFTImage(np.absolute(myRho)),interpolation = "nearest")
 plt.show()
-
+mask = np.ones(np.shape(myRho))
 for i in range(10000):
-    myRho = ip.ErrReduct(myRho, mod, support)
+    myRho = ip.ErrReduct(myRho, mod, support, mask)
     # myRho = ip.HIO(myRho, mod, support)
     if (i%1000 == 0):
         plt.imshow(det.centerFFTImage(np.absolute(myRho)),interpolation = "nearest")

@@ -9,7 +9,7 @@ import sys
 
 # Need to change this for each computer
 #sys.path.append('/home/kbeyerle/git/myPyFun/MyFuncts/src/')
-sys.path.append('/home/ken/git/myPyFun/MyFuncts/src/')
+sys.path.append('../../../myPyFun/MyFuncts/src/')
 import myMath
 
 import numpy as np
