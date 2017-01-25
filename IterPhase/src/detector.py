@@ -6,9 +6,16 @@ Python Module which contains functions for image manipulation file conversion.
 
 import numpy as np
 
-def centerFFTImage(arr):
+def rollEdgeToCenter(arr):
     temp=np.roll(arr, int(np.array(arr).shape[0]/2), axis=0)
-    temp=np.roll(temp, int(np.array(arr).shape[1]/2), axis=1)
+    if (len(np.shape(arr)) > 1):
+        temp=np.roll(temp, int(np.array(arr).shape[1]/2), axis=1)
+    return temp
+
+def rollCenterToEdge(arr):
+    temp=np.roll(arr, -int(np.array(arr).shape[0]/2), axis=0)
+    if (len(np.shape(arr)) > 1):
+        temp=np.roll(temp, -int(np.array(arr).shape[1]/2), axis=1)
     return temp
 
 #This does not do a good job of cutting off the outside intensity, 

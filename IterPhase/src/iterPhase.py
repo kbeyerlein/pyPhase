@@ -9,7 +9,7 @@ import sys
 
 # Need to change this for each computer
 #sys.path.append('/home/kbeyerle/git/myPyFun/MyFuncts/src/')
-sys.path.append('../../../myPyFun/MyFuncts/src/')
+# sys.path.append('../../../myPyFun/MyFuncts/src/')
 import myMath
 
 import numpy as np
@@ -56,7 +56,7 @@ def autoCorrelation(arr):
 
 def HIO(rho, mod, support, mask, b=0.9, positive=False, debug=False):
     if (debug):
-        print "support"
+        print ("support")
         plt.imshow(det.centerFFTImage(support), interpolation='nearest')
         plt.colorbar()
         plt.show()
@@ -66,23 +66,23 @@ def HIO(rho, mod, support, mask, b=0.9, positive=False, debug=False):
     suppModRho=modRho*np.array(support)
     hiodiff=(rho-b*modRho)*invertMask(support)
     if (debug):
-        print "suppModRho"
+        print ("suppModRho")
         plt.imshow(det.centerFFTImage(suppModRho.real), interpolation='nearest')
         plt.colorbar()
         plt.show()
-        print "hiodiff"
+        print ("hiodiff")
         plt.imshow(det.centerFFTImage(hiodiff.real), interpolation='nearest')
         plt.colorbar()
         plt.show()
-        print "modRho"
+        print ("modRho")
         plt.imshow(det.centerFFTImage(modRho.real), interpolation='nearest')
         plt.colorbar()
         plt.show()
-        print "rho"
+        print ("rho")
         plt.imshow(det.centerFFTImage(rho.real), interpolation='nearest')
         plt.colorbar()
         plt.show()
-        print "invsupport"
+        print ("invsupport")
         plt.imshow(det.centerFFTImage(invertMask(support)), interpolation='nearest')
         plt.colorbar()
         plt.show()
